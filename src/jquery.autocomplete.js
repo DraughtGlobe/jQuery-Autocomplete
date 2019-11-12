@@ -57,6 +57,7 @@
             defaults = {
                 ajaxSettings: {},
                 autoSelectFirst: false,
+                autoSelectFirstIfOnlyOneResult: false,
                 appendTo: document.body,
                 serviceUrl: null,
                 lookup: null,
@@ -675,6 +676,11 @@
                     };
 
             if (options.triggerSelectOnValidInput && that.isExactMatch(value)) {
+                that.select(0);
+                return;
+            }
+
+            if(options.autoSelectFirstIfOnlyOneResult && that.suggestions.length === 1) {
                 that.select(0);
                 return;
             }

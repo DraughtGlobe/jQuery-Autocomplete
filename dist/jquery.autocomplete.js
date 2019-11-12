@@ -1,5 +1,5 @@
 /**
-*  Ajax Autocomplete for jQuery, version 1.2.26
+*  Ajax Autocomplete for jQuery, version 1.2.26-autoselectfirstifonlyoneresult
 *  (c) 2015 Tomas Kirda
 *
 *  Ajax Autocomplete for jQuery is freely distributable under the terms of an MIT-style license.
@@ -57,6 +57,7 @@
             defaults = {
                 ajaxSettings: {},
                 autoSelectFirst: false,
+                autoSelectFirstIfOnlyOneResult: false,
                 appendTo: document.body,
                 serviceUrl: null,
                 lookup: null,
@@ -675,6 +676,11 @@
                     };
 
             if (options.triggerSelectOnValidInput && that.isExactMatch(value)) {
+                that.select(0);
+                return;
+            }
+
+            if(options.autoSelectFirstIfOnlyOneResult && that.suggestions.length === 1) {
                 that.select(0);
                 return;
             }
